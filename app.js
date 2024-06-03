@@ -225,7 +225,7 @@ function actualizarTotalCarrito() {
 
 // Función para obtener los productos de la base de datos
 function obtenerProductosDeBaseDeDatos() {
-    fetch('http://localhost:3000/productos')
+    fetch('https://tiendaghanja.azurewebsites.net/productos')
         .then(response => response.json())
         .then(productos => {
             // Aquí puedes manejar los productos obtenidos de la base de datos
