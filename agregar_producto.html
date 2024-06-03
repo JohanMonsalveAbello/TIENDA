@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tienda de Productos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        h1{
+            color: aliceblue;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 90px;
+            text-align: center;
+            margin-top: 70px;
+        }
+        form{
+            color: aliceblue;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agregar Nuevo Producto</h1>
+
+    <form id="nuevoProductoForm">
+        <div>
+            <label for="nombre">Nombre:</label> <br>
+            <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div>
+            <label for="imagen">Selecciona una imagen:</label> 
+            <input type="file" id="imagen" name="imagen" accept="image/*" required>
+        </div>
+        <div>
+            <label for="precio">Precio:</label><br>
+            <input type="number" id="precio" name="precio" step="0.01" required>
+        </div>
+        <button type="submit">Agregar Producto</button>     
+    </form>
+
+    <script src="agregar_producto.js"></script>
+</body>
+</html>
