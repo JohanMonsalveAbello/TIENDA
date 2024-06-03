@@ -1,0 +1,15 @@
+{
+    "name": "tienda",
+    "version": "1.0.0",
+    "description": "Aplicación Node.js para la tienda Ghanja",
+    "main": "api.js",
+    "scripts": {
+      "start": "node api.js"
+    },
+    "dependencies": {
+      "cors": "^2.8.5",
+      "express": "^4.17.1",
+      "mysql2": "^2.2.5"
+    }
+  }
+  
