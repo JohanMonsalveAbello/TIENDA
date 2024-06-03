@@ -218,42 +218,38 @@ function actualizarTotalCarrito() {
         total = total + (precio * cantidad);
     }
     total = Math.round(total * 100) / 100;
-
     document.getElementsByClassName('carrito-precio-total')[0].innerText = '$' + total.toLocaleString("es") + ",00";
-
 }
 
-// Función para obtener los productos de la base de datos
+// Función para obtener productos de la base de datos y agregarlos al HTML
 function obtenerProductosDeBaseDeDatos() {
-    fetch('https://tiendaghanja.azurewebsites.net/productos')
-        .then(response => response.json())
-        .then(productos => {
-            // Aquí puedes manejar los productos obtenidos de la base de datos
-            // Por ejemplo, puedes recorrer la lista de productos y crear elementos HTML para mostrarlos en la página
-            const contenedorItems = document.querySelector('.contenedor-items');
-            productos.forEach(producto => {
-                const nuevoItem = document.createElement('div');
-                nuevoItem.classList.add('items');
-                nuevoItem.innerHTML = `
-                    <span class="titulo-item">${producto.nombre}</span>
-                    <img src="${producto.imagen}" alt="" class="img-item">
-                    <span class="precio-item">$${producto.precio}</span>
-                    <button class="boton-item">Agregar al carrito</button>
-                `;
-                contenedorItems.appendChild(nuevoItem);
+    const apiBaseUrl = window.location.origin; // Obtiene la URL base de la API
 
-                // Agrega un event listener al botón "Agregar al carrito" del nuevo producto
-                const botonAgregar = nuevoItem.querySelector('.boton-item');
-                botonAgregar.addEventListener('click', () => {
-                    // Aquí puedes manejar la lógica para agregar el producto al carrito
-                    // Por ejemplo, puedes obtener la información del producto y agregarlo al carrito
-                    const nombreProducto = producto.nombre;
-                    const precioProducto = producto.precio;
-                    const imagenProducto = producto.imagen;
-                    agregarAlCarrito(nombreProducto, precioProducto, imagenProducto);
-                    hacerVisibleCarrito(); // Asegurar que el carrito sea visible después de agregar el producto
-                });
+    fetch(`${apiBaseUrl}/productos`)
+        .then(response => response.json())
+        .then(data => {
+            var contenedorItems = document.getElementsByClassName('contenedor-items')[0];
+            data.forEach(producto => {
+                var itemHTML = `
+                    <div class="item">
+                        <span class="titulo-item">${producto.nombre}</span>
+                        <img src="${producto.imagen}" class="img-item">
+                        <span class="precio-item">$${producto.precio}</span>
+                        <button class="boton-item">Agregar al carrito</button>
+                    </div>
+                `;
+                contenedorItems.innerHTML += itemHTML;
             });
+
+            // Agregar eventos de clic a los botones de agregar al carrito
+            var botonesAgregarAlCarrito = document.getElementsByClassName('boton-item');
+            for (var i = 0; i < botonesAgregarAlCarrito.length; i++) {
+                var button = botonesAgregarAlCarrito[i];
+                button.addEventListener('click', agregarAlCarritoClicked);
+            }
         })
-        .catch(error => console.error('Error al obtener productos:', error));
+        .catch(error => {
+            console.error('Error al obtener productos:', error);
+        });
 }
+
